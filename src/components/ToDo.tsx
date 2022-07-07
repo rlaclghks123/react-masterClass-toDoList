@@ -1,22 +1,30 @@
 import React from "react";
-import { IToDo } from "../atoms";
+import { useSetRecoilState } from "recoil";
+import { IToDo, toDoAtom } from "../atoms";
 
 
-function ToDo({ text, catergory }: IToDo) {
+function ToDo({ text, id, catergory }: IToDo) {
 
-    // const onclick = (newCategory : IToDo["category"]) =>{}
+    const setToDos = useSetRecoilState(toDoAtom);
+
     const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         const { currentTarget: { name } } = event;
-        console.log(name);
+
+        setToDos((oldToDos) => {
+            const tergetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
+            const oldToDo = { text, id, catergory };
+            const newToDo = { text, id, catergory: name };
+            console.log(oldToDo);
+            console.log(newToDo);
+            return oldToDos;
+        }
+        );
+
     }
 
     return (<li>
         <span>{text}</span>
 
-        {/* {catergory !== "TO_DO" && <button   onClick={()=>onClick("TO_DO"))}>To Do</button>}
-        {catergory !== "DOING" &&     <button   onClick={()=>onClick("DOING"))}>DOING</button>}
-        {catergory !== "DONE" &&      <button  onClick={()=>onClick("DONE"))}>DONE</button>}
-         */}
 
         {catergory !== "TO_DO" && <button name="TO_DO" onClick={onClick}>To Do</button>}
         {catergory !== "DOING" && <button name="DOING" onClick={onClick}>DOING</button>}
