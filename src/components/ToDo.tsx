@@ -26,7 +26,6 @@ function ToDo({ text, id, catergory }: IToDo) {
         <li>
             <span>{text}</span>
 
-
             {catergory !== "TO_DO" && <button name="TO_DO" onClick={onClick}>To Do</button>}
             {catergory !== "DOING" && <button name="DOING" onClick={onClick}>DOING</button>}
             {catergory !== "DONE" && <button name="DONE" onClick={onClick}>DONE</button>}

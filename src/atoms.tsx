@@ -11,15 +11,17 @@ export const toDoAtom = atom<IToDo[]>({
     default: [],
 });
 
+export const catergoryAtom = atom({
+    key: "category",
+    default: "TO_DO",
+})
+
 export const toDoSelector = selector({
     key: "toDoSelector",
     get: ({ get }) => {
         const toDos = get(toDoAtom);
+        const category = get(catergoryAtom);
 
-        return [
-            toDos.filter((toDo) => toDo.catergory === "TO_DO"),
-            toDos.filter((toDo) => toDo.catergory === "DOING"),
-            toDos.filter((toDo) => toDo.catergory === "DONE"),
-        ]
+        return toDos.filter((toDo) => toDo.catergory === category);
     }
 })
