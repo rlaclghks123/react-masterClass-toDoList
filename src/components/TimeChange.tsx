@@ -5,17 +5,19 @@ import { hourSelector, minuteAtom } from "../atoms";
 function TimeChange() {
 
     const [minutes, setMinutes] = useRecoilState(minuteAtom);
-    const hours = useRecoilValue(hourSelector);
+    const [hours, setHours] = useRecoilState(hourSelector);
     const onChangeMinutes = (event: React.FormEvent<HTMLInputElement>) => {
 
         setMinutes(+event.currentTarget.value);
-
     }
 
+    const onChangeHours = (event: React.FormEvent<HTMLInputElement>) => {
+        setHours(+event.currentTarget.value);
+    }
     return (
         <>
-            <input value={minutes} onChange={onChangeMinutes} placeholder="Minutes"></input>
-            <input value={`${hours} 시간`} placeholder="Hours"></input>
+            <input type="number" value={minutes} onChange={onChangeMinutes} placeholder="Minutes"></input>
+            <input type="number" value={hours} onChange={onChangeHours} placeholder="Hours"></input>
         </>
     )
 }

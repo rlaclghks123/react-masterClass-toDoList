@@ -52,10 +52,14 @@ export const minuteAtom = atom({
     default: 0,
 });
 
-export const hourSelector = selector({
+export const hourSelector = selector<number>({
     key: "hours",
     get: ({ get }) => {
         const minutes = get(minuteAtom);
-        return (minutes / 60).toFixed(2);
+        return (minutes / 60);
+    },
+    set: ({ set }, newValue) => {
+        const minutes = Number(newValue) * 60;
+        set(minuteAtom, minutes);
     }
 })
